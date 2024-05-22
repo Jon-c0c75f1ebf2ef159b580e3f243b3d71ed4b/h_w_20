@@ -1,36 +1,18 @@
 #pragma once
-#include "User.h"
-//#include <fstream> //User.h
+#include <string>
+#include <unordered_map>
 
-
-class Message
+class Hashing
 {
 public:
-	Message(const string& messageFrom, const string& messageTo, const string& text) : messageFrom_(messageFrom), messageTo_(messageTo), text_(text) {}
+    std::size_t hashing(std::string input_pas, std::string input_salt) {
 
-	const string& getFrom() const { return messageFrom_; }
-	const string& getTo() const { return messageTo_; }
-	const string& getText() const { return text_; }
+        std::string sait_pas = input_pas + input_salt;
 
-	friend std::fstream& operator >>(std::fstream& is, Message& obj) {
-		is >> obj.messageFrom_;
-		is >> obj.messageTo_;
-		is >> obj.text_;
-		return is;
-	}
+        std::hash<std::string> hasher;
 
-	friend std::ostream& operator <<(std::ostream& os, const Message& obj) {
-		os << obj.messageFrom_;
-		os << ' ';
-		os << obj.messageTo_;
-		os << ' ';
-		os << obj.text_;
-		return os;
-	}
+        std::size_t output_hash = hasher(sait_pas);
 
-private:
-	string messageFrom_;
-	string messageTo_;
-	string text_;
-
+        return output_hash;
+    };
 };
